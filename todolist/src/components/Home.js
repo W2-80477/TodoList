@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Delete from './Delete';
 
 function Home({ onEdit }) {
@@ -8,6 +9,8 @@ function Home({ onEdit }) {
   const tasksPerPage = 5;
   const [deleteTaskId, setDeleteTaskId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  
+  const navigate = useNavigate(); // Using useNavigate for navigation
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -89,8 +92,20 @@ function Home({ onEdit }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 p-6">
-      <div className="container mx-auto mt-10 p-6 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-lg shadow-2xl">
+      <div className="container mx-auto mt-10 p-6 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-lg shadow-2xl relative">
         <h1 className="text-3xl font-extrabold mb-8 text-white text-center">Task List</h1>
+
+        {/* Add Task Button */}
+        <div className="absolute top-4 right-4">
+          <button
+            onClick={() => navigate('/task')} // Navigate to Task component
+            className="px-6 py-3 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 focus:outline-none"
+          >
+            Add Task
+          </button>
+        </div>
+
+        {/* Task List Table */}
         <table className="min-w-full bg-white rounded-lg overflow-hidden shadow-lg">
           <thead className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
             <tr>
@@ -113,9 +128,9 @@ function Home({ onEdit }) {
                 <td className="px-4 py-4">
                   <span
                     className={`px-2 py-1 rounded-full text-white text-sm ${
-                      task.status === 'Completed'
+                      task.status === 'completed'
                         ? 'bg-green-500'
-                        : task.status === 'In Progress'
+                        : task.status === 'in-progress'
                         ? 'bg-yellow-500'
                         : 'bg-red-500'
                     }`}
@@ -160,6 +175,7 @@ function Home({ onEdit }) {
             ))}
           </tbody>
         </table>
+
         <div className="flex justify-between items-center mt-4">
           <div>
             {currentPage > 1 && (
