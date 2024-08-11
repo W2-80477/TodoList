@@ -60,6 +60,7 @@ function Edit({ task }) {
   };
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 p-6">
     <div className='max-w-md mx-auto mt-10 p-4 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-lg shadow-xl'>
       <div className='text-center'>
         <h1 className='text-2xl font-extrabold mb-4 text-white'>Edit Task</h1>
@@ -139,6 +140,7 @@ function Edit({ task }) {
           Save
         </button>
       </div>
+    </div>
     </div>
   );
 }
