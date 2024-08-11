@@ -23,7 +23,7 @@ function Task() {
     };
 
     try {
-      const response = await fetch('http://localhost:4000/todos', {
+      const response = await fetch('https://todo-list-backend-stfi.onrender.com/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

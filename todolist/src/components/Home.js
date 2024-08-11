@@ -15,7 +15,7 @@ function Home({ onEdit }) {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch('http://localhost:4000/');
+        const response = await fetch('https://todo-list-backend-stfi.onrender.com');
         if (response.ok) {
           const data = await response.json();
           const formattedData = data.map(task => ({
@@ -36,7 +36,7 @@ function Home({ onEdit }) {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/todos/${id}`, {
+      const response = await fetch(`https://todo-list-backend-stfi.onrender.com/todos/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -44,7 +44,7 @@ function Home({ onEdit }) {
         setShowDeleteModal(false);
         const fetchTasks = async () => {
           try {
-            const response = await fetch('http://localhost:4000/');
+            const response = await fetch('https://todo-list-backend-stfi.onrender.com');
             if (response.ok) {
               const data = await response.json();
               const formattedData = data.map(task => ({

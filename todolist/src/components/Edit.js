@@ -38,7 +38,7 @@ function Edit({ task }) {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/todos/${task._id}`, {
+      const response = await fetch(`https://todo-list-backend-stfi.onrender.com/todos/${task._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
