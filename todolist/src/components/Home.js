@@ -9,7 +9,7 @@ function Home({ onEdit }) {
   const tasksPerPage = 5;
   const [deleteTaskId, setDeleteTaskId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,26 +42,24 @@ function Home({ onEdit }) {
       if (response.ok) {
         setTasks(tasks.filter(task => task.id !== id));
         setShowDeleteModal(false);
-
         const fetchTasks = async () => {
-            try {
-              const response = await fetch('http://localhost:4000/');
-              if (response.ok) {
-                const data = await response.json();
-                const formattedData = data.map(task => ({
-                  ...task,
-                  dueDate: new Date(task.dueDate).toLocaleDateString('en-GB')
-                }));
-                setTasks(formattedData);
-              } else {
-                console.error('Failed to fetch tasks');
-              }
-            } catch (error) {
-              console.error('Error fetching tasks:', error);
+          try {
+            const response = await fetch('http://localhost:4000/');
+            if (response.ok) {
+              const data = await response.json();
+              const formattedData = data.map(task => ({
+                ...task,
+                dueDate: new Date(task.dueDate).toLocaleDateString('en-GB')
+              }));
+              setTasks(formattedData);
+            } else {
+              console.error('Failed to fetch tasks');
             }
-          };
-      
-          fetchTasks();
+          } catch (error) {
+            console.error('Error fetching tasks:', error);
+          }
+        };
+        fetchTasks();
       } else {
         console.error('Failed to delete task');
       }
@@ -96,14 +94,13 @@ function Home({ onEdit }) {
         <h1 className="text-3xl font-extrabold mb-8 text-white text-center">Task List</h1>
         <div className="absolute top-4 right-4">
           <button
-            onClick={() => navigate('/task')} 
+            onClick={() => navigate('/task')}
             className="px-6 py-3 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 focus:outline-none"
           >
             Add Task
           </button>
         </div>
 
-       
         <table className="min-w-full bg-white rounded-lg overflow-hidden shadow-lg">
           <thead className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
             <tr>
@@ -117,7 +114,7 @@ function Home({ onEdit }) {
             </tr>
           </thead>
           <tbody>
-            {currentTasks.map((task) => (
+            {currentTasks.map((task, index) => (
               <tr key={task.id} className="bg-white hover:bg-gray-100 transition-colors duration-300">
                 <td className="px-4 py-4 text-center">
                   <input type="checkbox" className="form-checkbox text-indigo-500 rounded-md" />
@@ -147,7 +144,11 @@ function Home({ onEdit }) {
                     Actions
                   </button>
                   {activeDropdown === task._id && (
-                    <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                    <div
+                      className={`absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-10 ${
+                        index === currentTasks.length - 1 ? 'bottom-full mb-2' : ''
+                      }`}
+                    >
                       <ul className="text-gray-800">
                         <li>
                           <button
